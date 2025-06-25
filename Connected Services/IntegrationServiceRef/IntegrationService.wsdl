@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://aandn.com/integration" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://aandn.com/integration" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://aandn.com/integration">
+      <s:element name="GetCatalogItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="category" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCatalogItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCatalogItemsResult" type="tns:ArrayOfCatalogItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCatalogItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CatalogItem" nillable="true" type="tns:CatalogItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CatalogItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProductID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="ImageUrl" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AvailableQty" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetInventoryLevels">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="productID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInventoryLevelsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInventoryLevelsResult" type="tns:ArrayOfInventoryLevel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInventoryLevel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="InventoryLevel" nillable="true" type="tns:InventoryLevel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InventoryLevel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProductID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LocationID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OnHandQty" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReservedQty" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AvailableQty" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReorderPoint" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SubmitOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="order" type="tns:OrderDto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderDto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BillingAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShippingAddress" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CartTotal" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="PromotionCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentMethod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfOrderItemDto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOrderItemDto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OrderItemDto" nillable="true" type="tns:OrderItemDto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OrderItemDto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProductID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnitPrice" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SubmitOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SubmitOrderResult" type="tns:OrderConfirmation" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderConfirmation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OrderID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderTime" type="tns:TimeSpan" />
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderStatus" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TimeSpan" />
+      <s:element name="GetShipmentStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="trackingNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetShipmentStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetShipmentStatusResult" type="tns:ShipmentStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ShipmentStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierInfo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TrackingNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ShippedDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EstimatedDelivery" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCatalogItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCatalogItems" />
+  </wsdl:message>
+  <wsdl:message name="GetCatalogItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCatalogItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInventoryLevelsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInventoryLevels" />
+  </wsdl:message>
+  <wsdl:message name="GetInventoryLevelsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInventoryLevelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SubmitOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:SubmitOrder" />
+  </wsdl:message>
+  <wsdl:message name="SubmitOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:SubmitOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetShipmentStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetShipmentStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetShipmentStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetShipmentStatusResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IntegrationServiceSoap">
+    <wsdl:operation name="GetCatalogItems">
+      <wsdl:input message="tns:GetCatalogItemsSoapIn" />
+      <wsdl:output message="tns:GetCatalogItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInventoryLevels">
+      <wsdl:input message="tns:GetInventoryLevelsSoapIn" />
+      <wsdl:output message="tns:GetInventoryLevelsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitOrder">
+      <wsdl:input message="tns:SubmitOrderSoapIn" />
+      <wsdl:output message="tns:SubmitOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentStatus">
+      <wsdl:input message="tns:GetShipmentStatusSoapIn" />
+      <wsdl:output message="tns:GetShipmentStatusSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IntegrationServiceSoap" type="tns:IntegrationServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCatalogItems">
+      <soap:operation soapAction="http://aandn.com/integration/GetCatalogItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInventoryLevels">
+      <soap:operation soapAction="http://aandn.com/integration/GetInventoryLevels" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitOrder">
+      <soap:operation soapAction="http://aandn.com/integration/SubmitOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentStatus">
+      <soap:operation soapAction="http://aandn.com/integration/GetShipmentStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IntegrationServiceSoap12" type="tns:IntegrationServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCatalogItems">
+      <soap12:operation soapAction="http://aandn.com/integration/GetCatalogItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInventoryLevels">
+      <soap12:operation soapAction="http://aandn.com/integration/GetInventoryLevels" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitOrder">
+      <soap12:operation soapAction="http://aandn.com/integration/SubmitOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentStatus">
+      <soap12:operation soapAction="http://aandn.com/integration/GetShipmentStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IntegrationService">
+    <wsdl:port name="IntegrationServiceSoap" binding="tns:IntegrationServiceSoap">
+      <soap:address location="https://localhost:44314/IntegrationService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="IntegrationServiceSoap12" binding="tns:IntegrationServiceSoap12">
+      <soap12:address location="https://localhost:44314/IntegrationService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
