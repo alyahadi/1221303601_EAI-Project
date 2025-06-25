@@ -1,0 +1,102 @@
+﻿<style >
+.product-grid {
+    display: grid; /* Enables CSS Grid layout */
+    /* This creates responsive columns:
+       - auto-fit: will create as many columns as possible
+       - minmax(300px, 1fr): each column will be at least 300px wide,
+                             and will take up equal remaining space.
+                             Adjust 300px if you want wider/narrower cards. */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; /* Space between each product card (row and column) */
+    padding: 20px 0; /* Padding above and below the entire grid */
+}
+
+/* === Individual Product Card Styling === */
+.product-item {
+    border: 1px solid #eee; /* Light grey border */
+    padding: 15px; /* Padding inside each product card */
+    text-align: left; /* Align text content to the left */
+    background-color: #fff; /* White background for the card */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for a card effect */
+    display: flex; /* Use Flexbox for content *within* the card */
+    flex-direction: column; /* Stack items (image, name, price) vertically */
+    justify-content: space-between; /* Distributes space between items vertically */
+    height: 100%; /* Ensures all cards in a row have the same height */
+}
+
+/* === Image Container Styling (to control image frame) === */
+.product-image-container {
+    width: 100%; /* Take full width of the product item card */
+    height: 250px; /* Fixed height for all image containers. Adjust as needed. */
+    overflow: hidden; /* Crucial: Hides parts of the image that go beyond the container */
+    display: flex; /* Use flexbox to center the image within this container */
+    justify-content: center; /* Center image horizontally */
+    align-items: center; /* Center image vertically */
+    margin-bottom: 15px; /* Space below the image */
+}
+
+    /* === Image Sizing within its Container === */
+    .product-image-container img {
+        max-width: 100%; /* Image will not exceed the width of its container */
+        max-height: 100%; /* Image will not exceed the height of its container */
+        height: auto; /* Maintain aspect ratio (prevents distortion) */
+        display: block; /* Removes extra space below the image */
+        object-fit: contain; /* CRUCIAL: Scales the image down to fit inside the container
+                           while maintaining its aspect ratio. It won't crop the image.
+                           Use 'cover' if you want the image to fill the container, even if it crops. */
+    }
+
+/* === Product Details Styling === */
+.product-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333; /* Darker text for name */
+}
+
+.product-price {
+    font-size: 1.2em; /* Slightly larger price text */
+    font-weight: bold;
+    color: #e44d26; /* Example color for price (like a sales red/orange) */
+    margin-top: 10px; /* Space above the price */
+}
+
+/* === "NEW BRAND" Tag Styling (Only if you decide to implement it) === */
+.new-brand-tag {
+    position: absolute; /* Positions relative to the .product-item */
+    top: 15px; /* Distance from top of the card */
+    right: 15px; /* Distance from right of the card */
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #333;
+    z-index: 10; /* Ensures it's above the image */
+}
+
+/* Basic styling for the filter input/button */
+form p {
+    margin-bottom: 20px;
+}
+
+form input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+form input[type="submit"] {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    form input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+</style >
