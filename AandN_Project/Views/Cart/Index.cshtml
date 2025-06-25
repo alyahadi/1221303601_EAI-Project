@@ -1,0 +1,38 @@
+﻿@model List<AandN_Website.Controllers.CartItem>
+
+@{
+    ViewBag.Title = "Your Cart";
+    var grandTotal = Model.Sum(i => i.Quantity * i.Price);
+}
+
+<h2>Your Cart</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@Model[i].Name</td>
+                <td>@Model[i].Price.ToString("C")</td>
+                <td>@Model[i].Quantity</td>
+                <td>@(Model[i].Price * Model[i].Quantity)</td>
+                <td>
+                    @Html.ActionLink("Remove", "RemoveFromCart", "Cart", new { index = i }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4><strong>Grand Total:</strong> @grandTotal.ToString("C")</h4>
+
+<a href="@Url.Action("Checkout", "Cart")" class="btn btn-primary">Checkout</a>
